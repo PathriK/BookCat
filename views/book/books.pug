@@ -1,0 +1,32 @@
+extends ../layout
+
+block content
+  .page-header
+    h3 All Books
+
+  ul
+    for book in books
+      form(method='PUT')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .form-group.row
+          li.col-md-3
+            =book.name
+          label.col-md-3.col-form-label.font-weight-bold.text-right(for='update_' + book.name) Update Name
+          .col-md-3
+            input(type='hidden', name='id', value=book._id)
+            input.form-control(type='text', name='name', id='update_' + book.name, placeholder=book.name, autofocus, required)
+          button.col-md-3.btn.btn-primary(type='submit')
+            i.far.fa-user.fa-sm
+            | Update
+  h4 New Book
+  form(method='POST')
+    input(type='hidden', name='_csrf', value=_csrf)
+    .form-group.row
+      label.col-md-3.col-form-label.font-weight-bold.text-right(for='name') Name
+      .col-md-7
+        input.form-control(type='text', name='name', id='name', placeholder='Book Name', autofocus, required)
+    .form-group
+      .offset-sm-3.col-md-7.pl-2
+        button.col-md-3.btn.btn-primary(type='submit')
+          i.far.fa-user.fa-sm
+          | Add        
